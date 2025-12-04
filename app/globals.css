@@ -1,26 +1,281 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Mizizi - Earth & Rhythm Color Palette */
+  --background: #F6EFE6;
+  --foreground: #2C1A0E;
+  --accent: #A05A2C;
+  --accent-dark: #79472E;
+  --surface: #FFF6EC;
+  --chocolate: #2C1A0E;
+  
+  /* Extended Palette */
+  --color-ochre: #A05A2C;
+  --color-deep-loam: #2C1A0E;
+  --color-sand: #FFF3DD;
+  --color-cream: #F6EFE6;
+  --color-warm-brown: #79472E;
+  --color-terracotta: #D86733;
+  --color-rust: #A44518;
+  --color-light-beige: #E8D4C0;
+  --color-off-white: #FFF2E4;
+  
+  /* Typography */
+  --font-body: var(--font-arimo), sans-serif;
+  --font-heading: var(--font-azeret-mono), monospace;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ochre: #A05A2C;
+  --color-deep-loam: #2C1A0E;
+  --color-sand: #FFF3DD;
+  --color-cream: #F6EFE6;
+  --color-warm-brown: #79472E;
+  --color-terracotta: #D86733;
+  --color-rust: #A44518;
+  --color-light-beige: #E8D4C0;
+  --color-off-white: #FFF2E4;
+  --font-body: 'Arimo', sans-serif;
+  --font-heading: 'Azeret Mono', monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 body {
+  margin: 0;
+  min-height: 100vh;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+
+.grain {
+  position: relative;
+}
+
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Crect width='1' height='1' fill='%23d6c2b1'/%3E%3C/svg%3E");
+  opacity: 0.15;
+  mix-blend-mode: multiply;
+}
+
+.progress-track {
+  width: 100%;
+  height: 0.5rem;
+  border-radius: 999px;
+  appearance: none;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.progress-track::-webkit-progress-bar {
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.progress-track::-webkit-progress-value {
+  border-radius: 999px;
+  background-color: #d86733;
+}
+
+.progress-track::-moz-progress-bar {
+  border-radius: 999px;
+  background-color: #d86733;
+}
+
+.artifact-viewer {
+  width: 100%;
+  height: 100%;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: var(--color-sand);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--color-ochre);
+  border-radius: 999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-warm-brown);
+}
+
+/* Smooth Transitions */
+.transition-smooth {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Card Hover Effects */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(44, 26, 14, 0.15);
+}
+
+/* 3D Card Effect */
+.card-3d {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+/* 3D Image Gallery Effects */
+.image-3d {
+  transform-style: preserve-3d;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.image-3d::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%, rgba(0, 0, 0, 0.1) 100%);
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.image-3d:hover {
+  transform: translateY(-12px) rotateX(5deg) scale(1.03);
+  box-shadow: 
+    0 25px 50px -12px rgba(44, 26, 14, 0.25),
+    0 15px 30px -15px rgba(160, 90, 44, 0.3),
+    0 0 0 1px rgba(160, 90, 44, 0.1);
+}
+
+.image-3d:hover::before {
+  opacity: 1;
+}
+
+.image-3d::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, #A05A2C, #D86733, #79472E, #A05A2C);
+  background-size: 300% 300%;
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: gradient-shift 6s ease infinite;
+}
+
+.image-3d:hover::after {
+  opacity: 0.6;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Floating animation for images */
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0px) rotateZ(0deg); }
+  25% { transform: translateY(-6px) rotateZ(1deg); }
+  50% { transform: translateY(0px) rotateZ(0deg); }
+  75% { transform: translateY(-4px) rotateZ(-1deg); }
+}
+
+.float-animation {
+  animation: float-gentle 6s ease-in-out infinite;
+}
+
+/* Stagger floating animations */
+.float-delay-1 { animation-delay: 0s; }
+.float-delay-2 { animation-delay: 0.5s; }
+.float-delay-3 { animation-delay: 1s; }
+.float-delay-4 { animation-delay: 1.5s; }
+.float-delay-5 { animation-delay: 2s; }
+.float-delay-6 { animation-delay: 2.5s; }
+
+/* Ken Burns effect for hero images */
+@keyframes ken-burns {
+  0% { transform: scale(1) translateX(0) translateY(0); }
+  50% { transform: scale(1.1) translateX(-2%) translateY(-2%); }
+  100% { transform: scale(1) translateX(0) translateY(0); }
+}
+
+.animate-ken-burns {
+  animation: ken-burns 20s ease-in-out infinite;
+}
+
+/* Custom Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+/* Stagger animation delays */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
